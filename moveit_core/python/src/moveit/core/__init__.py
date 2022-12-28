@@ -9,4 +9,7 @@ from . import (
     robot_model,
     robot_state,
     transforms,
+    trajectory_processing,
+    robot_trajectory,
+    test_utils
 )

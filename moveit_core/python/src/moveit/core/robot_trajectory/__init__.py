@@ -1,0 +1,1 @@
+from pymoveit_core.robot_trajectory import *
