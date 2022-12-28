@@ -234,6 +234,9 @@ set(pymoveit_libs
   moveit_robot_model
   moveit_robot_state
   moveit_transforms
+  moveit_trajectory_processing
+  moveit_robot_trajectory
+  moveit_test_utils
 )
 
 pybind_add_module(pymoveit_core
@@ -244,6 +247,9 @@ pybind_add_module(pymoveit_core
     transforms/src/pytransforms.cpp
     planning_scene/src/pyplanning_scene.cpp
     kinematic_constraints/src/pykinematic_constraint.cpp
+    trajectory_processing/src/pytrajectory_processing.cpp
+    robot_trajectory/src/pyrobot_trajectory.cpp
+    utils/src/pytest_utils.cpp
 )
 target_include_directories(pymoveit_core SYSTEM PRIVATE ${catkin_INCLUDE_DIRS})
 target_link_libraries(pymoveit_core PRIVATE ${pymoveit_libs} ${catkin_LIBRARIES})

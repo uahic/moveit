@@ -54,6 +54,12 @@ void def_planning_scene_bindings(py::module& m);
 
 void def_kinematic_constraints_bindings(py::module& m);
 
+void def_trajectory_processing_bindings(py::module& m);
+
+void def_robot_trajectory_bindings(py::module& m);
+
+void def_test_utils_bindings(py::module& m);
+
 auto load_robot_model(const std::string& urdf_path, const std::string& srdf_path)
 {
   auto urdf_model = urdf::parseURDFFile(urdf_path);
@@ -71,6 +77,9 @@ PYBIND11_MODULE(pymoveit_core, m)
   auto robot_state_m = m.def_submodule("robot_state");
   auto kinematic_constraints_m = m.def_submodule("kinematic_constraints");
   auto transforms_m = m.def_submodule("transforms");
+  auto trajectory_processing_m = m.def_submodule("trajectory_processing");
+  auto robot_trajectory_m = m.def_submodule("robot_trajectory");
+  auto test_utils_m = m.def_submodule("test_utils");
 
   def_collision_detection_bindings(collision_detection_m);
   def_robot_model_bindings(robot_model_m);
@@ -78,6 +87,9 @@ PYBIND11_MODULE(pymoveit_core, m)
   def_planning_scene_bindings(planning_scene_m);
   def_transforms_bindings(transforms_m);
   def_kinematic_constraints_bindings(kinematic_constraints_m);
+  def_trajectory_processing_bindings(trajectory_processing_m);
+  def_robot_trajectory_bindings(robot_trajectory_m);
+  def_test_utils_bindings(test_utils_m);
 
   // convenience function
   m.def("load_robot_model", &load_robot_model);
