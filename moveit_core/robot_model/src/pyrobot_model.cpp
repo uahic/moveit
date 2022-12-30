@@ -52,6 +52,7 @@ void def_robot_model_bindings(py::module& m)
       .def("getName", &RobotModel::getName)
       .def("getLinkModelNames", &RobotModel::getLinkModelNames)
       .def("getJointModelNames", &RobotModel::getJointModelNames)
+      .def("getVariableIndex", &RobotModel::getVariableIndex, py::arg("variable"))
       //
       ;
 
