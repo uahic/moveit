@@ -77,6 +77,31 @@ void def_trajectory_processing_bindings(py::module& m)
       .def("getPosition", &Trajectory::getPosition, py::arg("time"))
       .def("getVelocity", &Trajectory::getVelocity, py::arg("time"))
       .def("getAcceleration", &Trajectory::getAcceleration, py::arg("time"))
+      .def("resample",
+           [](const Trajectory& trajectory, double resample_dt) {
+             size_t sample_count = std::ceil(trajectory.getDuration() / resample_dt);
+             std::list<Eigen::VectorXd> positions;
+             std::list<Eigen::VectorXd> velocities;
+             std::list<Eigen::VectorXd> accelerations;
+             std::list<double> times;
+             //    std::tuple<std::list<Eigen::VectorXd>, std::list<Eigen::VectorXd>, std::list<Eigen::VectorXd>,
+             //    std::list<double>>
+             //        ret_val;
+
+             for (size_t sample = 0; sample <= sample_count; ++sample)
+             {
+               // always sample the end of the trajectory as well
+               double t = std::min(trajectory.getDuration(), sample * resample_dt);
+               Eigen::VectorXd position = trajectory.getPosition(t);
+               Eigen::VectorXd velocity = trajectory.getVelocity(t);
+               Eigen::VectorXd acceleration = trajectory.getAcceleration(t);
+               positions.push_back(position);
+               velocities.push_back(velocity);
+               accelerations.push_back(acceleration);
+               times.push_back(t);
+             }
+             return std::make_tuple(positions, velocities, accelerations, times);
+           })
       //
       ;
 
